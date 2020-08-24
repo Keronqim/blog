@@ -69,7 +69,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">2.1k</span>
+            <span class="post-count">2.9k</span>
         </span>
     </span>
 
@@ -78,7 +78,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">7 分钟</span>
+            <span class="post-count">10 分钟</span>
         </span>
     </span>
 </div>
@@ -229,6 +229,80 @@
 </li>
 </ul>
 <p><code>4.服务器确定租约，并向客户端发送ACK包</code></p>
+<p> <strong>3.DHCP相关概念</strong></p>
+<ul>
+<li><p>DHCP客户端：获取网络配置参数的终端</p>
+</li>
+<li><p>DHCP服务端：提供网络配置参数的终端（提供的信息有，IP地址，网关，dns等）</p>
+</li>
+<li><p>DHCP中继：服务端和客户端之间转发dhcp的设备（主机或者是路由器）</p>
+</li>
+<li><p>作用域：一个网络所有可以分配IP地址的连续范围，主要用来定义物理子网的单一IP地址范围</p>
+</li>
+<li><p>超级作用域：一组作用域的集合，实现一个物理子网中多个逻辑IP地址</p>
+</li>
+<li><p>排除范围：排除作用域内有限的IP地址序列</p>
+</li>
+<li><p>地址池：定义作用域+排除范文之后，剩余的地址形成可用地址池</p>
+</li>
+<li><p>保留：dhcp服务器提供永久地址租约，确保客户端始终使用相同的IP地址</p>
+</li>
+<li><p>租用：客户从服务器上获得并临时占用某个IP地址的过程</p>
+</li>
+<li><p>租约：获得IP地址的使用时间，当租约到期或者被删除时或停止租约</p>
+<p><strong>DHCP租约更新</strong></p>
+</li>
+<li><p>自动更新<br>当租约&gt;=50%，自动尝试更新</p>
+<pre><code>当租约&gt;=87.5%，发出广播再次更新租约
+当租约&gt;=1005%，客户机停止使用当前IP地址，只能重新进行DHCP的租约过程</code></pre></li>
+<li><p>手动更新<br>windows：ipconfig /renew和/release（释放IP）</p>
+<pre><code>Linux：dhclient -r </code></pre></li>
+</ul>
+<p><strong>DHCP优点</strong></p>
+<ul>
+<li>减少管理员的工作量</li>
+<li>节约IP地址，提高IP地址的利用效率</li>
+<li>避免IP冲突</li>
+<li>移动计算机后不需要重新配置网络信息，能够方便更改错误的可能性</li>
+</ul>
+<p><strong>DHCP实验</strong></p>
+<p>将Windows server虚拟机克隆，一台用作服务器，一台用作客户机。</p>
+<p>将VMware软件自身的DHCP关闭，否则一个局域网中会有多台服务端，会影响到实验现象的观察<br><img src="C:%5CUsers%5Casus%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200824135523928.png" alt="image-20200824135523928"></p>
+<p>注意在克隆后的计算机上进行：win+r  输入sysprep</p>
+<p><img src="C:%5CUsers%5Casus%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200824135755121.png" alt="image-20200824135755121"></p>
+<ul>
+<li>第一步，在服务器端安装dhcp角色，点击添加角色和功能，安装dhcp</li>
+<li>第二步，新建作用域（包括了指定DHCP所有的相关参数）</li>
+<li>第三步，给服务端配置静态IP地址</li>
+<li>第四步，客户端将IP地址获得的方式改为dhcp</li>
+<li>第五步，客户端win+r  输入ipconfig /release，释放之前的地址信息</li>
+<li>第六步，客户端win+r  输入ipconfig /renew，重新获得IP地址</li>
+</ul>
+<h3 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h3><p> <strong>DNS域名解析服务</strong><br>域名系统dns是一种分布式网络目录服务，主要作用是将<strong><em>域名与IP地址之间的互相转换</em></strong>（目的是为了解决IP地址不方便记忆）<br>    DNS是基于C/S<code>（客户机和服务器）</code>架构的 </p>
+<p> <strong>DNS系统组成</strong></p>
+<ul>
+<li><p>域名空间：标识一组主机并提供他们的有关信息的树结构的说明</p>
+</li>
+<li><p>域名服务器：保持和维护域名空间中的数据</p>
+</li>
+<li><p>stub解析器：解析器是简单的程序或子程序数据库，它从服务器中提取信息来应对域名空间中主机查询</p>
+<p><strong>DNS服务器类型</strong></p>
+</li>
+<li><p>权威性服务器</p>
+<ul>
+<li>主域名服务器</li>
+<li>辅域名服务器（作为主域名服务器的备份）</li>
+<li>残根域名服务器</li>
+<li>秘密域名服务器</li>
+</ul>
+</li>
+<li><p>非权威性服务器</p>
+<ul>
+<li>惟高速缓存服务器</li>
+<li>转发服务器</li>
+</ul>
+</li>
+</ul>
 
       
       <!-- reward -->
