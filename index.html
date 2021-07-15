@@ -428,7 +428,8 @@
 <h3 id="DoD模型（美国国防部模型）"><a href="#DoD模型（美国国防部模型）" class="headerlink" title="DoD模型（美国国防部模型）"></a>DoD模型（美国国防部模型）</h3><p>![](C:\Users\asus\Pictures\Screenshots\批注 2020-03-31 170026.png)</p>
 <h3 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h3><p>![](C:\Users\asus\Pictures\Screenshots\批注 2020-03-31 171547.png)</p>
 <h6 id="序列号和确认号"><a href="#序列号和确认号" class="headerlink" title="序列号和确认号"></a>序列号和确认号</h6><p>TCP会话的每一端都包含一个32位（bit）的序列号，该序列号被用来跟踪该端发送的数据量。<em>每一个包中都包含序列号，在接收端则通过确认号用来通知发送端数据成功接收</em></p>
-<h5 id="1-三次握手（三次握手会导致半开TCP的攻击行为-）"><a href="#1-三次握手（三次握手会导致半开TCP的攻击行为-）" class="headerlink" title="1.三次握手（三次握手会导致半开TCP的攻击行为 ）"></a>1.三次握手（三次握手会导致半开TCP的攻击行为 ）</h5><p><a href="https://www.z4a.net/image/g1Xw69" target="_blank" rel="noopener">https://www.z4a.net/image/g1Xw69</a></p>
+<h5 id="1-三次握手（三次握手会导致半开TCP的攻击行为dos-）"><a href="#1-三次握手（三次握手会导致半开TCP的攻击行为dos-）" class="headerlink" title="1.三次握手（三次握手会导致半开TCP的攻击行为dos ）"></a>1.三次握手（三次握手会导致半开TCP的攻击行为dos ）</h5><img src="https://www.z4a.net/images/2021/07/15/srchttp___pic3.zhimg.com_v2-e0d749b68780b060b094d3c163f9fb5b_b.jpgreferhttp___pic3.zhimg.jpg" alt="srchttp___pic3.zhimg.com_v2-e0d749b68780b060b094d3c163f9fb5b_b.jpgreferhttp___pic3.zhimg.jpg" border="0" />
+
 <p>1）客户端向服务器发送连接请求包SYN，在该数据包中，序列号<code>seq=j</code>，ack=0（<em>seq是序列号，这是为了连接以后传送数据用的，<code>初始序列号是客户端随机产生的一个值</code>；ack是对收到的数据包的确认，值是等待接收的数据包的序列号</em>）</p>
 <p>2） 服务器收到连接请求包SYN后，将客户端的请求包SYN放到自己的末连接队列中，此时服务器需要发送两个包给客户端：</p>
 <p>​         （1）向客户端发送确认自己收到其连接请求的确认包ACK（<em>此时初始序列号是由服务器随机产生的一个值<code>seq=k</code>，确认号是客户端初始序列号+1，即<code>ack=j+1</code></em>）</p>
